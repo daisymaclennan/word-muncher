@@ -5,20 +5,15 @@ const WhiteBox = styled.div`
   box-shadow: 2px 2px 4px rgba(78, 111, 125, 0.25);
   border-radius: 10px;
 
+  padding-top: 20px;
+  padding-bottom: 20px;
+
   ${props => props.login && `
     width: 350px;
 
     position: fixed;
     top: calc(50vh - 175px);
     left: calc(50vw - 175px);
-
-    h2{
-      text-align: center;
-      letter-spacing: 0.05em;
-      color: #043C54;
-      font-weight: normal;
-      margin-bottom: 0;
-    }
 
     h5{
       font-family: Raleway;
@@ -40,6 +35,15 @@ const WhiteBox = styled.div`
   `}
 
   ${props => props.form && `
+    .title{
+      text-align: center;
+      letter-spacing: 0.05em;
+      color: #043C54;
+      font-weight: normal;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+
     .error{
       border-bottom: 1px solid #CC0000!important;
     }
@@ -99,6 +103,13 @@ const WhiteBox = styled.div`
       color: #CC0000;
       margin-right: 20px;
     }
+  `}
+  ${props => props.signIn &&`
+    position: fixed;
+    width: 350px;
+
+    top: calc(50vh - 175px);
+    left: calc(50vw - 175px);
   `}
 `
 

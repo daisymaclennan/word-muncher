@@ -1,5 +1,6 @@
 const sql = require('sql-template-strings')
 const { query } = require('../../../lib/db')
+const bcrypt = require('bcrypt')
 
 export default async (req, res) => {
   if (req.method !== 'POST') {

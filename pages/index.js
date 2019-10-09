@@ -6,6 +6,8 @@ import { useCookies } from 'react-cookie'
 import { Formik, Form, Field, FieldArray } from 'formik'
 import WhiteBox from '../components/WhiteBox'
 import * as Yup from 'yup';
+import Router from 'next/router'
+import Cookies from 'js-cookie'
 
 const Page = () => {
   /*Gets the value of the user cookie and assigns it to the variable user*/
@@ -18,7 +20,7 @@ const Page = () => {
     if(!registerPage){
       return(
         <Layout>
-          <LoginForm/>
+          <LoginForm setRegisterPage={setRegisterPage}/>
         </Layout>
       )
     }else{
@@ -27,6 +29,7 @@ const Page = () => {
           <RegisterForm setRegisterPage={setRegisterPage}/>
         </Layout>
       )
+
     }
   }
   return(
@@ -50,11 +53,13 @@ const registerSchema = Yup.object().shape({
     .required('Required'),
 })
 
+
 const RegisterForm = ({setRegisterPage}) => (
+  <>
     <WhiteBox login form>
       <div>
         {/*Register form -- styles inside WhiteBox component*/}
-        <h2>Register</h2>
+        <h2 className="title">Register</h2>
 
         <Formik initialValues={{ username: '',
                                  email_address: '',
@@ -70,7 +75,8 @@ const RegisterForm = ({setRegisterPage}) => (
                     }
                   })
                   if(register.res.ok){
-                    console.log("I should change to the sign in page now")
+                    /*On a successful registration the user will be taken to the login page*/
+                    setRegisterPage(false)
                   }
                 }}
                 validationSchema={registerSchema}
@@ -116,12 +122,65 @@ const RegisterForm = ({setRegisterPage}) => (
         </a>
       </div>
     </WhiteBox>
+  </>
+  
 )
+
+const LoginFormSchema = Yup.object().shape({
+  username: Yup.string()
+    .required('Required'),
+  password: Yup.string()
+    .required('Required')
+})
 
 const LoginForm = () => (
   <>
+    {/*Login form - styles inside WhiteBox component*/}
     <WhiteBox signIn form>
-    SDFGHJKL;KJHGFHJKL;;KKKDSAJFGHJKLO;IUYTRDEFCGVHBJK
+      <h2 className="title">Sign in</h2>
+      <Formik initialValues={{
+                username: '',
+                password: ''
+              }}
+              onSubmit={async values => {
+                const login = await api('login', {
+                  method: 'POST',
+                  body: JSON.stringify(values),
+                  headers: {
+                    "content-type": "application/json"
+                  }
+                })
+
+                if(login.res.ok){
+                  Cookies.set('user', login.json.token)
+                  Router.push('/dashboard')
+                  console.log("Successful login")
+                }else{
+                  console.log("Login failed")
+                }
+              }}
+              validationSchema={LoginFormSchema}
+              render={({ values, handleSubmit, errors, touched }) => (
+                <Form>
+                  <Field type="text"
+                         name="username"
+                         placeholder="Username"
+                         className={`${errors.username && touched.username ? 'error' : ''}`}/>
+                  {errors.username && touched.username ? (
+                    <h6>{errors.username}</h6>
+                  ): null}
+                  <Field type="password"
+                         name="password"
+                         placeholder="Password"
+                         className={`${errors.password && touched.password ? 'error' : ''}`}/>
+                  {errors.password && touched.password ? (
+                    <h6>{errors.password}</h6>
+                  ): null}
+
+                  <button type="submit">Submit</button>
+                </Form>
+              )}
+      />
     </WhiteBox>
   </>
 )

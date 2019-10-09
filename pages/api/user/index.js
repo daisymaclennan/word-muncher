@@ -1,5 +1,7 @@
 const sql = require('sql-template-strings')
 const { query } = require('../../../lib/db')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 export default async (req, res) => {
   if(req.method === 'POST'){
@@ -15,6 +17,7 @@ export default async (req, res) => {
     /*Throws errors if there is any*/
     if(exists.length > 0){
       console.log('Username exists')
+      res.status(409).json()
       /*Throw an error here when ready*/
     }else if(exists.error){
       throw exists.error
@@ -25,7 +28,7 @@ export default async (req, res) => {
 
     /*Adds the user to the database*/
     const results = await query(sql`
-      INSERT INTO users
+      INSERT INTO user
         (username,
          email_address,
          password)

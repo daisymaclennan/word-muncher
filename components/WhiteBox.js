@@ -74,6 +74,7 @@ const WhiteBox = styled.div`
       border-radius: 10px;
       width: calc(100% - 40px);
       height: 40px;
+      border: 0;
 
       font-family: Raleway;
       font-weight: 800;
@@ -104,12 +105,42 @@ const WhiteBox = styled.div`
       margin-right: 20px;
     }
   `}
+
   ${props => props.signIn &&`
     position: fixed;
     width: 350px;
 
     top: calc(50vh - 175px);
     left: calc(50vw - 175px);
+  `}
+
+  ${props => props.noFiles && `
+    position: fixed;
+    width: calc(100vw - 80px);
+    padding-left: 20px;
+    padding-right: 20px;
+
+    top: 90px;
+    left: 20px;
+  `}
+
+  ${props => props.document && `
+    position: fixed;
+    top: 90px;
+    width: 670px;
+    left: 20px;
+    padding-bottom: 25px;
+    height: calc(100vh - 160px);
+    @media screen and (min-width: 801px){
+      width: 670px;
+    }
+  `}
+
+  ${props => props.toolbar && `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50px;
   `}
 `
 

@@ -32,11 +32,11 @@ const Page = () => {
 
     }
   }
-  return(
-  <Layout>
-    <Homepage/>
-  </Layout>
-)}
+  if(process.browser){
+    Router.push('/files')
+  }
+  return null
+}
 
 /*Validation for the register form*/
 const registerSchema = Yup.object().shape({
@@ -123,7 +123,7 @@ const RegisterForm = ({setRegisterPage}) => (
       </div>
     </WhiteBox>
   </>
-  
+
 )
 
 const LoginFormSchema = Yup.object().shape({
@@ -153,7 +153,7 @@ const LoginForm = () => (
 
                 if(login.res.ok){
                   Cookies.set('user', login.json.token)
-                  Router.push('/dashboard')
+                  Router.push('/files')
                   console.log("Successful login")
                 }else{
                   console.log("Login failed")

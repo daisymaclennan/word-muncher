@@ -153,11 +153,23 @@ const Layout = ({ children }) => (
 
       display: flex;
       align-items: center;
+      //justify-content: space-between;
 
       svg{
         margin-left: auto;
       }
       `}>
+
+      {/*Add icon only shown on certain pages*/}
+      {/*<a href="/files/add" css={`
+        background: #FFFFFF;
+        border: 0;
+      `}>
+        <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.2143 10.375H15.1786V2.5C15.1786 1.53367 14.3789 0.75 13.3929 0.75H11.6071C10.6211 0.75 9.82143 1.53367 9.82143 2.5V10.375H1.78571C0.799665 10.375 0 11.1587 0 12.125V13.875C0 14.8413 0.799665 15.625 1.78571 15.625H9.82143V23.5C9.82143 24.4663 10.6211 25.25 11.6071 25.25H13.3929C14.3789 25.25 15.1786 24.4663 15.1786 23.5V15.625H23.2143C24.2003 15.625 25 14.8413 25 13.875V12.125C25 11.1587 24.2003 10.375 23.2143 10.375Z" fill="#2A8DB8"/>
+        </svg>
+      </a>*/}
+
       {/*Word muncher logo in svg format*/}
       <svg width="92" height="44" viewBox="0 0 92 44" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect y="25" width="81" height="19" rx="9.5" fill="#2A8DB8"/>

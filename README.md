@@ -1,6 +1,6 @@
 # Word Muncher
 
-This is a [Next.js](https://nextjs.org) project.
+This is an unfinished [Next.js](https://nextjs.org) project.
 
 Clientside routes are in [`/pages`](/pages).
 
